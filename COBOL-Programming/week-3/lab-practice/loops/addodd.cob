@@ -1,0 +1,26 @@
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. ODDNUMBERS.
+
+        DATA DIVISION. 
+        WORKING-STORAGE SECTION. 
+        01 WS-NUMBERS PIC 9(3).
+        01 WS-SUM     PIC 9(3).
+
+        PROCEDURE DIVISION.
+           DISPLAY 'ODD NUMBERS' WITH NO ADVANCING.
+           PERFORM VARYING WS-NUMBERS
+              FROM 1 BY 2 UNTIL WS-NUMBERS > 19
+
+              DISPLAY WS-NUMBERS WITH NO ADVANCING
+              DISPLAY ' ' WITH NO ADVANCING
+
+              ADD WS-NUMBERS TO WS-SUM
+           END-PERFORM.
+
+           DISPLAY '................'.
+           DISPLAY 'sUM OF ODD NUMBERS: ' WS-SUM.
+           STOP RUN.
+       
+
+
+

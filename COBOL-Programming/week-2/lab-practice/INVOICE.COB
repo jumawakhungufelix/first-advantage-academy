@@ -1,0 +1,58 @@
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. INVOICE-CALCULATOR.
+
+        DATA DIVISION.
+        WORKING-STORAGE SECTION.
+        01 WS-ITEM-NAME      PIC X(30)     VALUE SPACES.
+        01 WS-UNIT-PRICE     PIC 9(6)V99     VALUE ZERO.
+        01 WS-QTY            PIC 9(4)     VALUE ZERO.
+        01 WS-SUB-TOTAL      PIC 9(8)V99     VALUE ZERO.
+        01 WS-VAT            PIC 9(7)V99     VALUE ZERO.
+        01 WS-TOTAL          PIC 9(8)V99     VALUE ZERO.
+        01 WS-PRICE-DISPLAY  PIC ZZZ,ZZ9.99    VALUE ZERO.
+        01 WS-SUB-TOTAL-DISPLAY  PIC ZZZ,ZZ9.99  VALUE ZERO.
+        01 WS-VAT-DISPLAY     PIC ZZZ,ZZ9.99     VALUE ZERO.
+        01 WS-TOTAL-DISPLAY    PIC ZZZ,ZZ9.99     VALUE ZERO.
+        01 WS-SEPERATOR      PIC X(40)     VALUE ALL '='.
+
+        PROCEDURE DIVISION.
+        DISPLAY 'Enter item name: 'WITH NO ADVANCING.
+        ACCEPT WS-ITEM-NAME.
+        DISPLAY 'Enter unit price: 'WITH NO ADVANCING.
+        ACCEPT WS-UNIT-PRICE.
+        DISPLAY 'Enter quantity: 'WITH NO ADVANCING.
+        ACCEPT WS-QTY.
+
+        COMPUTE WS-SUB-TOTAL ROUNDED = WS-UNIT-PRICE * WS-QTY
+           ON SIZE ERROR DISPLAY 'subtotal error'
+        END-COMPUTE.
+
+        COMPUTE WS-VAT ROUNDED = WS-SUB-TOTAL * WS-VAT
+           ON SIZE ERROR DISPLAY 'VAT  error'
+        END-COMPUTE.
+
+        COMPUTE WS-TOTAL ROUNDED = WS-SUB-TOTAL + WS-VAT
+           ON SIZE ERROR DISPLAY 'Total error'
+        END-COMPUTE.
+
+        MOVE WS-UNIT-PRICE   TO WS-PRICE-DISPLAY.
+        MOVE WS-SUB-TOTAL    TO WS-SUB-TOTAL-DISPLAY.
+        MOVE WS-VAT          TO WS-VAT-DISPLAY.
+        MOVE WS-TOTAL        TO WS-TOTAL-DISPLAY.
+
+        DISPLAY WS-SEPERATOR.
+        DISPLAY '           INVOICE'.
+        DISPLAY WS-SEPERATOR.
+        DISPLAY '           ITEM'.
+        DISPLAY 'Unit Price : 'WS-PRICE-DISPLAY.
+        DISPLAY 'Quantity   : 'WS-QTY.
+        DISPLAY WS-SEPERATOR.
+        DISPLAY 'Subtotal   : 'WS-SUB-TOTAL-DISPLAY.
+        DISPLAY 'VAT (16%)  : 'WS-VAT-DISPLAY.
+        DISPLAY 'TOTAL      : 'WS-TOTAL-DISPLAY.
+        DISPLAY WS-SEPERATOR.
+        STOP RUN.
+
+
+
+        
