@@ -1,0 +1,15 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. VALIDATE.
+
+       DATA DIVISION. 
+       WORKING-STORAGE SECTION.
+       01 WS-AGE          PIC 9(3) VALUE 25.
+       01 WS-VALID-FLAG   PIC X.
+       PROCEDURE DIVISION.
+           
+           CALL 'validate' USING BY CONTENT WS-AGE,
+            BY REFERENCE WS-VALID-FLAG
+            DISPLAY 'AFTER CALL AGE: ' WS-AGE 'FLAG: ' WS-VALID-FLAG
+
+           STOP RUN.
+           
