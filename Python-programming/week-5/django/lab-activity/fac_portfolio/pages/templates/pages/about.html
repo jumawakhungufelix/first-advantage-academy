@@ -1,0 +1,33 @@
+{% extends "pages/main.html" %}
+{% load static %}
+
+{% block body %}
+<h1>{{title}}</h1>
+<div class="education">
+<h2>College</h2>
+<p>Studied at {{college_name}} for a {{course_name}} from 2020</p>
+<h2>High School</h2>
+<p>Studied at {{highschool_name}} from 2016</p>
+
+
+</div>
+<div class="experience">
+    <h2>Institution</h2>
+    <p>Instaveg LTD</p>
+    <h2>Role and position</h2>
+    <p>Worked as field consultant tasked to get information and feedback from clients</p>
+    <h2>Start and end date</h2>
+    <p>2024 - 2026 </p>
+
+</div>
+<div class="interests">
+    <h2>interests</h2>
+    <ul>
+        <li>Web development</li>
+        <li>Database Management</li>
+        <li>Maintenance</li>
+    </ul>
+
+</div>
+
+{% endblock %}
