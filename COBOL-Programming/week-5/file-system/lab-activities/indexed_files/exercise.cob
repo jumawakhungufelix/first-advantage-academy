@@ -35,8 +35,9 @@
        PROCEDURE DIVISION.
            
            
-           OPEN I-O PRODUCT-FILE
-           SET WS-INDEX TO 1
+           OPEN OUTPUT PRODUCT-FILE
+           DISPLAY 'FILE STATUS= 'WS-FILE-STATUS
+           
            PERFORM VARYING WS-INDEX FROM 1 BY 1 UNTIL WS-INDEX > 3
            DISPLAY 'Enter product Code: ' WITH NO ADVANCING 
            ACCEPT WS-PRODUCT-CODE(WS-INDEX)
@@ -50,22 +51,34 @@
            
            END-PERFORM
 
+           CLOSE PRODUCT-FILE
+
+           OPEN I-O PRODUCT-FILE
+
            PERFORM VARYING WS-INDEX FROM 1 BY 1 UNTIL WS-INDEX > 3
            MOVE WS-PRODUCT-CODE(WS-INDEX) TO PRODUCT-CODE
            MOVE WS-PRODUCT-NAME(WS-INDEX) TO PRODUCT-NAME
            MOVE WS-PRODUCT-PRICE(WS-INDEX) TO PRODUCT-PRICE
            MOVE WS-PROD-QTY(WS-INDEX) TO PROD-QTY
+
            
            WRITE PRODUCT-RECORD
-              INVALID
+              INVALID KEY
                  DISPLAY 'Duplicate key not added'
               NOT INVALID
                  DISPLAY 'Records added successfyly'
            END-WRITE
 
+           DISPLAY 'FILE STATUS: ' WS-FILE-STATUS
+
+         
+
            
            END-PERFORM
-           DISPLAY PRODUCT-CODE ' 'PRODUCT-NAME
+           PERFORM VARYING WS-INDEX FROM 1 BY 1 UNTIL WS-INDEX > 3
+             DISPLAY WS-PRODUCT-CODE(WS-INDEX)  ' ' 
+             WS-PRODUCT-NAME(WS-INDEX)
+           END-PERFORM
 
            DISPLAY 'Enter product code to search: ' WITH NO ADVANCING 
            ACCEPT WS-SEARCH-CODE
@@ -80,6 +93,5 @@
                  DISPLAY ' ' PRODUCT-PRICE " " PROD-QTY 
                  WITH NO ADVANCING 
            END-READ.
+           DISPLAY 'fILE STATUS: 'WS-FILE-STATUS
            CLOSE PRODUCT-FILE.
-
-

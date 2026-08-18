@@ -1,0 +1,74 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    
+    <div class="d-flex align-items-center mb-4">
+      <a href="{% url 'pages:detail' student.pk %}" class="btn btn-light border me-3">← Back</a>
+      <div>
+        <h3 class="mb-0 fw-bold">Edit Student</h3>
+        <small class="text-muted">{{ student.name }} • {{ student.reg_no }}</small>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label fw-semibold small text-uppercase text-muted">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+              {% endif %}
+              {% if field.help_text %}
+                <div class="form-text">{{ field.help_text }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+            <a href="{% url 'pages:list' %}" class="btn btn-light border px-4">Cancel</a>
+            <div>
+              <span class="badge bg-light text-dark border me-2">Grade: {{ student.grade_letter }}</span>
+              <button type="submit" class="btn btn-primary px-4 shadow-sm">Save Changes</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Make Django default inputs look like Bootstrap */
+  input[type="text"], input[type="email"], input[type="number"], select, textarea {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .375rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+  }
+</style>
+
+{% endblock %}

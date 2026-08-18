@@ -1,0 +1,46 @@
+# Python / Django
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment - you don't push your venv (it's 300MB+ and personal)
+venv/
+env/
+.venv/
+ENV/
+
+# Django specific
+*.log
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# If you upload files
+/media/
+uploads/
+
+# Env variables - contains SECRET_KEY, passwords - NEVER push this
+.env
+.env.local
+*.env
+
+# IDE / OS - your personal editor settings, not needed for others
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Coverage / testing
+htmlcov/
+.coverage
+.pytest_cache/
+.tox/
+
+# Node if you ever use Bootstrap build
+node_modules/

@@ -1,0 +1,119 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="mb-0 fw-bold">Student Dashboard</h2>
+    <p class="text-muted mb-0 small">Manage and track all active students</p>
+  </div>
+  <a href="{% url 'pages:add' %}" class="btn btn-primary shadow-sm">
+    + Add Student
+  </a>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <div>
+          <div class="text-muted small text-uppercase fw-semibold">Total Students</div>
+          <div class="fs-2 fw-bold">{{ stats.total|default:0 }}</div>
+        </div>
+        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
+          👥
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <div>
+          <div class="text-muted small text-uppercase fw-semibold">Average Marks</div>
+          <div class="fs-2 fw-bold">{{ stats.avg|floatformat:1|default:"0.0" }}</div>
+        </div>
+        <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
+          📊
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small text-uppercase fw-semibold mb-2">Courses</div>
+        <div class="d-flex flex-wrap gap-2">
+          {% for c in courses %}
+            <span class="badge bg-light text-dark border">
+              {{ c.name }} <span class="badge bg-primary ms-1">{{ c.student_count }}</span>
+            </span>
+          {% empty %}
+            <span class="text-muted small">No courses yet</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Students Table -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-white py-3">
+    <h5 class="mb-0">Active Students</h5>
+  </div>
+  
+  {% if students %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr class="small text-muted text-uppercase">
+          <th class="ps-4">Name</th>
+          <th>Reg No</th>
+          <th>Marks</th>
+          <th>Course</th>
+          <th class="text-end pe-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td class="ps-4">
+            <a href="{% url 'pages:detail' s.pk %}" class="fw-semibold text-decoration-none text-dark">
+              {{ s.name }}
+            </a>
+            <div class="small text-muted">{{ s.email }}</div>
+          </td>
+          <td><code>{{ s.reg_no }}</code></td>
+          <td>
+            <span class="badge {% if s.marks >= 70 %}bg-success{% elif s.marks >= 50 %}bg-warning text-dark{% else %}bg-danger{% endif %} rounded-pill">
+              {{ s.marks }}
+            </span>
+          </td>
+          <td>{{ s.course.name }}</td>
+          <td class="text-end pe-4">
+            <div class="btn-group btn-group-sm">
+              <a href="{% url 'pages:detail' s.pk %}" class="btn btn-outline-primary">View</a>
+              <a href="{% url 'pages:edit' s.pk %}" class="btn btn-sm btn-warning">Edit</a>
+              <a href="{% url 'pages:delete' s.pk %}" class="btn btn-outline-danger">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="card-body text-center py-5">
+    <div class="fs-1 mb-2">🎓</div>
+    <h6>No active students yet</h6>
+    <p class="text-muted small mb-3">Get started by adding your first student</p>
+    <a href="{% url 'pages:add' %}" class="btn btn-primary btn-sm">Add Student</a>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

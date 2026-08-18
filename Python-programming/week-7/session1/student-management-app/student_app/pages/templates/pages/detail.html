@@ -1,0 +1,21 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header"><h5 class="mb-0">{{ student.name }}</h5></div>
+      <div class="card-body">
+        <p><strong>Reg No:</strong> {{ student.reg_no }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Course:</strong> <span class="badge bg-info text-dark">{{ student.course.name }}</span></p>
+        <p><strong>Marks:</strong> {{ student.marks }}</p>
+        <p><strong>Status:</strong> {% if student.is_active %}<span class="badge bg-success">Active</span>{% else %}<span class="badge bg-secondary">Inactive</span>{% endif %}</p>
+      </div>
+      <div class="card-footer d-flex gap-2">
+        <a href="{% url 'pages:list' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'pages:delete' student.pk %}" class="btn btn-danger ms-auto">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

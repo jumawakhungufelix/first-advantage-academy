@@ -1,0 +1,14 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. tax-computation.
+
+       DATA DIVISION. 
+       LINKAGE SECTION.
+       01 LS-GROSS-SALARY       PIC 9(6)V99.
+       01 LS-TAX-AMOUNT         PIC 9(5)V99.
+
+       PROCEDURE DIVISION USING LS-GROSS-SALARY,LS-TAX-AMOUNT.
+           COMPUTE LS-TAX-AMOUNT = LS-GROSS-SALARY * 0.25.
+
+           DISPLAY 'TAX AMOUNT = 'LS-TAX-AMOUNT.
+           GOBACK.
+           

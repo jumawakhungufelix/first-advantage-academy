@@ -1,0 +1,15 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TAX.
+
+       DATA DIVISION. 
+       WORKING-STORAGE SECTION.
+       01 WS-GROSS-SALARY       PIC 9(6)V99 VALUE 60000.
+       01 WS-TAX-AMOUNT         PIC 9(5)V99.
+
+       PROCEDURE DIVISION.
+
+           CALL 'tax-computation' USING BY REFERENCE WS-GROSS-SALARY,
+                    WS-TAX-AMOUNT.
+           DISPLAY 'AFTER CALL GROSS= ' WS-GROSS-SALARY 
+           ' TAX= 'WS-TAX-AMOUNT.
+           STOP RUN.

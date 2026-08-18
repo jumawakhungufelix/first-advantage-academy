@@ -1,0 +1,45 @@
+       IDENTIFICATION DIVISION. 
+       PROGRAM-ID. EMPLOYEE-SORT.
+
+       ENVIRONMENT DIVISION. 
+       INPUT-OUTPUT SECTION. 
+       FILE-CONTROL.
+
+           SELECT EMPLOYEE-FILE ASSIGN TO 'EMPLOYEE.DAT'
+           ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT SORTED-FILE ASSIGN TO 'EMPLOYEE-SORTED.DAT'
+           ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT SORT-WORK ASSIGN TO 'SORT-WORK.TMP'.
+
+       DATA DIVISION. 
+       FILE SECTION. 
+       FD EMPLOYEE-FILE.
+       01 EMPLOYEE-RECORD.
+           05 EMP-ID         PIC X(4).
+           05 EMP-NAME       PIC X(20).
+           05 DEP-CODE       PIC X(4).
+           05 SALARY         PIC 9(6)V99.
+
+       FD SORTED-FILE.
+       01 SORTED-RECORD.
+           05 SORTED-EMP-ID     PIC X(4).
+           05 SORTED-EMP-NAME   PIC X(20).
+           05 SORTED-DEP-CODE   PIC X(4).
+           05 SORTED-SALARY     PIC 9(6)V99.
+
+       SD SORT-WORK.
+       01 SORT-WORK-RECORD.
+           05 SR-EMP-ID         PIC X(4).
+           05 SR-EMP-NAME       PIC X(20).
+           05 SR-DEP-CODE          PIC X(4).
+           05 SR-SALARY         PIC 9(6)V99.
+
+       PROCEDURE DIVISION.
+       
+           SORT SORT-WORK
+           ON ASCENDING KEY SR-DEP-CODE
+           ON ASCENDING KEY SR-EMP-NAME
+           USING EMPLOYEE-FILE 
+           GIVING SORTED-FILE 
+           STOP RUN.
+
